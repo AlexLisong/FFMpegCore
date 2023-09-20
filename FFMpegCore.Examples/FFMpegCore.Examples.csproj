@@ -8,8 +8,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FFMpegCore.Extensions.SkiaSharp\FFMpegCore.Extensions.SkiaSharp.csproj" />
-    <ProjectReference Include="..\FFMpegCore.Extensions.System.Drawing.Common\FFMpegCore.Extensions.System.Drawing.Common.csproj"/>
-    <ProjectReference Include="..\FFMpegCore\FFMpegCore.csproj"/>
+    <ProjectReference Include="..\FFMpegCore.Extensions.System.Drawing.Common\FFMpegCore.Extensions.System.Drawing.Common.csproj" />
+    <ProjectReference Include="..\FFMpegCore\FFMpegCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ffmpeg.config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

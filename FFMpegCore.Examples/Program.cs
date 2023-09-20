@@ -5,18 +5,18 @@ using FFMpegCore.Extensions.SkiaSharp;
 using FFMpegCore.Extensions.System.Drawing.Common;
 using FFMpegCore.Pipes;
 using SkiaSharp;
-using FFMpegImage = FFMpegCore.Extensions.System.Drawing.Common.FFMpegImage;
+//using FFMpegImage = FFMpegCore.Extensions.System.Drawing.Common.FFMpegImage;
 
-var inputPath = "/path/to/input";
-var outputPath = "/path/to/output";
+var inputPath = "Yunze-pawel-czerwinski-fpZZEV0uQwA-unsplash.mp4";
+var outputPath = $"output{Guid.NewGuid()}.mp4";
 
-{
-    var mediaInfo = FFProbe.Analyse(inputPath);
-}
+//{
+//    var mediaInfo = FFProbe.Analyse(inputPath);
+//}
 
-{
-    var mediaInfo = await FFProbe.AnalyseAsync(inputPath);
-}
+//{
+//    var mediaInfo = await FFProbe.AnalyseAsync(inputPath);
+//}
 
 {
     FFMpegArguments
@@ -33,35 +33,51 @@ var outputPath = "/path/to/output";
 }
 
 {
-    // process the snapshot in-memory and use the Bitmap directly
-    var bitmap = FFMpegImage.Snapshot(inputPath, new Size(200, 400), TimeSpan.FromMinutes(1));
+    //// process the snapshot in-memory and use the Bitmap directly
+    //var bitmap = FFMpegImage.Snapshot(inputPath, new Size(200, 400), TimeSpan.FromMinutes(1));
 
-    // or persists the image on the drive
-    FFMpeg.Snapshot(inputPath, outputPath, new Size(200, 400), TimeSpan.FromMinutes(1));
+    //// or persists the image on the drive
+    //FFMpeg.Snapshot(inputPath, outputPath, new Size(200, 400), TimeSpan.FromMinutes(1));
 }
 
 var inputStream = new MemoryStream();
 var outputStream = new MemoryStream();
 
-{
-    await FFMpegArguments
-        .FromPipeInput(new StreamPipeSource(inputStream))
-        .OutputToPipe(new StreamPipeSink(outputStream), options => options
-            .WithVideoCodec("vp9")
-            .ForceFormat("webm"))
-        .ProcessAsynchronously();
-}
+//{
+//    await FFMpegArguments
+//        .FromPipeInput(new StreamPipeSource(inputStream))
+//        .OutputToPipe(new StreamPipeSink(outputStream), options => options
+//            .WithVideoCodec("vp9")
+//            .ForceFormat("webm"))
+//        .ProcessAsynchronously();
+//}
 
 {
     FFMpeg.Join(@"..\joined_video.mp4",
-        @"..\part1.mp4",
-        @"..\part2.mp4",
-        @"..\part3.mp4"
+        outputPath,
+        @"output.mp4"
     );
 }
 
 {
-    FFMpeg.JoinImageSequence(@"..\joined_video.mp4", frameRate: 1, @"..\1.png", @"..\2.png", @"..\3.png");
+    var arr = new List<string>
+    {
+        @"1.png",
+        @"2.png",
+        @"3.png",
+        @"4.png",
+        @"5.png"
+    };
+    var newArray = new List<string>();
+
+    foreach (var item in arr)
+    {
+        for (var i = 0; i < 30; i++)
+        {
+            newArray.Add(item);
+        }
+    }
+    FFMpeg.JoinImageSequence(@"..\joined_video.mp4", frameRate: 1, newArray.ToArray());
 }
 
 {
